@@ -163,7 +163,9 @@ function App() {
           transform: "translate(-50%, -50%)",
           borderRadius: "100px",
           pointerEvents: "none",
-          boxShadow: glow,
+          boxShadow: musicStarted
+          ? glow // bright HSL glow while music is playing
+          : "0 0 20px 10px rgba(200, 180, 50, 0.5)",
           zIndex: 1,
         }}
       />
