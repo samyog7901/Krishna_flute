@@ -1,11 +1,19 @@
 FROM node:20
+
 WORKDIR /frontend
-COPY ./package*.json ./
+
+COPY package*.json ./
 RUN npm install
+
 COPY . .
-# VOLUME ["/frontend/src"]
+
+# Build React app
+RUN npm run build
+
+# Install serve globally to serve static files
+RUN npm install -g serve
 
 EXPOSE 5173
 
-CMD ["npm", "start"] 
-# 1 hours 6 minutes
+# Serve the build folder
+CMD ["serve", "-s", "dist", "-l", "5173"]
