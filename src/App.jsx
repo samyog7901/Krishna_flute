@@ -221,17 +221,18 @@ function App() {
               fontWeight: "bold",
               fontFamily: "Tiro Devanagari, serif",
               color: "#6a0dad",
-              animation: `scrollMantraReverse ${scrollDuration}s linear infinite`,
+              animation: musicStarted
+                ? `scrollMantraReverse ${scrollDuration}s linear infinite, pulseGlowBlue 2s ease-in-out infinite`
+                : `scrollMantraReverse ${scrollDuration}s linear infinite`,
             }}
           >
             {mantraText.repeat(2)}
           </div>
+
         </div>
       )}
 
-      {/* Top-right scrolling mantra (right-to-left) */}
-     {/* Top-right scrolling mantra (right-to-left) */}
-    {/* Top-center mantra (static, always visible) */}
+    
 {/* Top-center mantra (static, glows after music starts) */}
 <div
   style={{
@@ -254,7 +255,7 @@ function App() {
       ? "0 0 20px 10px rgba(255, 220, 100, 0.6)"
       : "none",
     transition: "background 0.5s, box-shadow 0.5s",
-    animation: musicStarted ? "pulseGlow 2s ease-in-out infinite" : "none",
+    animation: "pulseGlowYellow 2s ease-in-out infinite",
   }}
 >
   {mantraText.repeat(1)}
@@ -265,31 +266,28 @@ function App() {
 
       {/* Scroll animation keyframes */}
       <style>
-  {`
-    @keyframes scrollMantra {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-    @keyframes scrollMantraReverse {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-    @keyframes pulseGlow {
-      0% {
-        box-shadow: 0 0 20px 10px rgba(255, 220, 100, 0.6);
-        background: rgba(255, 220, 100, 0.5);
-      }
-      50% {
-        box-shadow: 0 0 35px 15px rgba(255, 220, 100, 0.8);
-        background: rgba(255, 220, 100, 0.7);
-      }
-      100% {
-        box-shadow: 0 0 20px 10px rgba(255, 220, 100, 0.6);
-        background: rgba(255, 220, 100, 0.5);
-      }
-    }
-  `}
-</style>
+      {`
+        @keyframes scrollMantra {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+        @keyframes scrollMantraReverse {
+          0% { transform: translateX(100%); }
+          100% { transform: translateX(-100%); }
+        }
+        @keyframes pulseGlowYellow {
+          0% { box-shadow: 0 0 20px 10px rgba(255, 220, 100, 0.6); background: rgba(255, 220, 100, 0.5); }
+          50% { box-shadow: 0 0 35px 15px rgba(255, 220, 100, 0.8); background: rgba(255, 220, 100, 0.7); }
+          100% { box-shadow: 0 0 20px 10px rgba(255, 220, 100, 0.6); background: rgba(255, 220, 100, 0.5); }
+        }
+        @keyframes pulseGlowBlue {
+          0% { box-shadow: 0 0 20px 10px rgba(100, 150, 255, 0.6); background: rgba(100, 150, 255, 0.3); }
+          50% { box-shadow: 0 0 35px 15px rgba(100, 150, 255, 0.8); background: rgba(100, 150, 255, 0.5); }
+          100% { box-shadow: 0 0 20px 10px rgba(100, 150, 255, 0.6); background: rgba(100, 150, 255, 0.3); }
+        }
+      `}
+      </style>
+
 
     </div>
   );
