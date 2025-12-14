@@ -261,7 +261,7 @@ function App() {
 <div
   style={{
     position: "absolute",
-    top: isMobile ? "83px" : "90px",
+    top: isMobile ? "90px" : "95px",
     left: "50%",
     transform: "translateX(-50%)",
 
