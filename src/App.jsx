@@ -6,17 +6,35 @@ function App() {
   const [mantraAngle, setMantraAngle] = useState(0);
   const [pulse, setPulse] = useState(0);
   const audioRef = useRef(null);
+  const isMobile = viewport.width < 640;
 
-  const centerX = window.innerWidth / 2;
-  const centerY = window.innerHeight / 2;
+  const imageSize = isMobile ? 110 : 150;
+  const textSize = isMobile ? 18 : 22;
+  const scrollTextSize = isMobile ? 20 : 28;
+  const textRadiusResponsive = isMobile ? 110 : 150;
 
+    const [viewport, setViewport] = useState({
+      width: window.innerWidth,
+      height: window.innerHeight,
+    });
+  
+  useEffect(() => {
+    const handleResize = () =>
+      setViewport({ width: window.innerWidth, height: window.innerHeight });
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  
+  const centerX = viewport.width / 2;
+  const centerY = viewport.height / 2;
+  
   const numPetals = 12;
   const mantraWords = [
     "हरे", "कृष्ण", "हरे", "कृष्ण", "कृष्ण", "कृष्ण",
     "हरे", "हरे |", "हरे", "राम", "हरे", "राम",
     "राम", "राम", "हरे", "हरे ||"
   ];
-  const textRadius = 150;
+  const textRadius = textRadiusResponsive;
   const scrollDuration = 35; // seconds for both top and bottom
 
   const handleStart = () => {
@@ -112,14 +130,17 @@ function App() {
 
   const mantraText = "हरेर्नाम हरेर्नाम हरेर्नामैव केवलम् । कलौ नास्त्येव नास्त्येव नास्त्येव गतिरन्यथा ॥ ";
 
+  
+
   return (
     <div
       style={{
-        height: "100vh",
+        minHeight: "100svh",
         width: "100vw",
         position: "relative",
         overflow: "hidden",
         background: "#e6f7ff",
+        
       }}
     >
       <audio ref={audioRef} loop>
@@ -159,7 +180,7 @@ function App() {
           position: "absolute",
           left: centerX,
           top: centerY,
-          height: "150px",
+          height: `${imageSize}px`,
           transform: "translate(-50%, -50%)",
           borderRadius: "100px",
           pointerEvents: "none",
@@ -190,7 +211,7 @@ function App() {
                 left: wordX,
                 top: wordY,
                 transform: `translate(-50%, -50%) rotate(${rotation}deg)`,
-                fontSize: "22px",
+                fontSize: `${textSize}px`,
                 fontWeight: "bold",
                 fontFamily: "Tiro Devanagari, serif",
                 color: "#6a0dad",
@@ -219,7 +240,7 @@ function App() {
             style={{
               display: "inline-block",
               whiteSpace: "nowrap",
-              fontSize: "28px",
+              fontSize: `${scrollTextSize}px`,
               fontWeight: "bold",
               fontFamily: "Tiro Devanagari, serif",
               color: "#6a0dad",
@@ -239,11 +260,11 @@ function App() {
 <div
   style={{
     position: "absolute",
-    top: "90px",
+    top: isMobile ? "60px" : "90px",
     left: "50%",
     transform: "translateX(-50%)",
     whiteSpace: "nowrap",
-    fontSize: "28px",
+    fontSize: `${scrollTextSize}px`,
     fontWeight: "bold",
     fontFamily: "Tiro Devanagari, serif",
     color: "#6a0dad",
@@ -254,8 +275,10 @@ function App() {
     borderRadius: "10px",
     background: musicStarted ? "rgba(255, 220, 100, 0.5)" : "transparent",
     boxShadow: musicStarted
-      ? "0 0 20px 10px rgba(255, 220, 100, 0.6)"
-      : "none",
+  ? isMobile
+    ? `0 0 20px 10px hsl(${hue}, 100%, 60%)`
+    : glow
+  : "0 0 15px 8px rgba(200, 180, 50, 0.5)",
     transition: "background 0.5s, box-shadow 0.5s",
     animation: "pulseGlowYellow 2s ease-in-out infinite",
   }}
