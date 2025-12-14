@@ -261,10 +261,14 @@ function App() {
 <div
   style={{
     position: "absolute",
-    top: isMobile ? "60px" : "90px",
+    top: isMobile ? "65px" : "90px",
     left: "50%",
     transform: "translateX(-50%)",
-    whiteSpace: "nowrap",
+
+    maxWidth: isMobile ? "90vw" : "70vw", // ✅ ADD
+    whiteSpace: "normal",                 // ✅ CHANGE
+    wordBreak: "break-word",              // ✅ ADD
+
     fontSize: `${scrollTextSize}px`,
     fontWeight: "bold",
     fontFamily: "Tiro Devanagari, serif",
@@ -276,16 +280,17 @@ function App() {
     borderRadius: "10px",
     background: musicStarted ? "rgba(255, 220, 100, 0.5)" : "transparent",
     boxShadow: musicStarted
-  ? isMobile
-    ? `0 0 20px 10px hsl(${hue}, 100%, 60%)`
-    : glow
-  : "0 0 15px 8px rgba(200, 180, 50, 0.5)",
+      ? isMobile
+        ? `0 0 20px 10px hsl(${hue}, 100%, 60%)`
+        : glow
+      : "0 0 15px 8px rgba(200, 180, 50, 0.5)",
     transition: "background 0.5s, box-shadow 0.5s",
     animation: "pulseGlowYellow 2s ease-in-out infinite",
   }}
 >
-  {mantraText.repeat(1)}
+  {mantraText}
 </div>
+
 
 
 
