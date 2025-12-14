@@ -1,6 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 
 function App() {
+  const [viewport, setViewport] = useState(() => ({
+    width: typeof window !== "undefined" ? window.innerWidth : 1024,
+    height: typeof window !== "undefined" ? window.innerHeight : 768,
+  }));
   const [angle, setAngle] = useState(0);
   const [musicStarted, setMusicStarted] = useState(false);
   const [mantraAngle, setMantraAngle] = useState(0);
@@ -13,10 +17,7 @@ function App() {
   const scrollTextSize = isMobile ? 20 : 28;
   const textRadiusResponsive = isMobile ? 110 : 150;
 
-    const [viewport, setViewport] = useState({
-      width: window.innerWidth,
-      height: window.innerHeight,
-    });
+
   
   useEffect(() => {
     const handleResize = () =>
